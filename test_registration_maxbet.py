@@ -1,10 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
-import datetime
+from .pages.generators import *
 
 
 link = "https://dev.maxbet.by/ru"
+
+
 def test_registration():
     try:
         chrome_options = Options()
@@ -16,7 +18,6 @@ def test_registration():
 
         d = datetime.datetime.now()
         d = d.strftime('%y%m%d%H%M')
-
         # time.sleep(5)
 
         confirm_push_button = browser.find_element_by_css_selector("button#confirmWebpushButton")
@@ -27,11 +28,11 @@ def test_registration():
         registration_button.click()
 
         input_name = browser.find_element_by_css_selector("input[formcontrolname='first_name']")
-        input_name.send_keys("Иван")
+        input_name.send_keys(randomStringCirillic())
         input_surname = browser.find_element_by_css_selector("input[formcontrolname='surname']")
-        input_surname.send_keys("Иванов")
+        input_surname.send_keys(randomStringCirillic())
         input_middle_name = browser.find_element_by_css_selector("input[formcontrolname='middle_name']")
-        input_middle_name.send_keys("Иванович")
+        input_middle_name.send_keys(randomStringCirillic())
         birth_day_select = browser.find_element_by_css_selector("personal-info div.selectGroup custom-select.select:nth-child(1)")
         birth_day_select.click()
         birth_day = browser.find_element_by_css_selector("div.ng-option.ng-star-inserted:nth-child(3)")
@@ -55,9 +56,9 @@ def test_registration():
         next_button1.click()
 
         input_city = browser.find_element_by_css_selector("input[formcontrolname='city']")
-        input_city.send_keys("Бучми")
+        input_city.send_keys(randomStringCirillic())
         input_address1 = browser.find_element_by_css_selector("input[formcontrolname='address1']")
-        input_address1.send_keys("вул. Пушкина 228")
+        input_address1.send_keys(randomStringCirillic())
         input_username = browser.find_element_by_css_selector("input[formcontrolname='username']")
         input_username.send_keys(f"test{d}")
         input_password = browser.find_element_by_css_selector("input[formcontrolname='password']")
@@ -74,7 +75,34 @@ def test_registration():
         document_number = browser.find_element_by_css_selector("input[formcontrolname='document_number']")
         document_number.send_keys("ds1234567")
         personal_id = browser.find_element_by_css_selector("input[formcontrolname='personal_id']")
-        personal_id.send_keys("12345678901234")
+        personal_id.send_keys(generate_id())
+        document_issue_agency = browser.find_element_by_css_selector("input[formcontrolname='document_issue_agency']")
+        document_issue_agency.send_keys(randomStringCirillic())
+        date_doc_received = browser.find_element_by_css_selector("account-info div:nth-child(5) custom-select:nth-child(1)")
+        date_doc_received.click()
+        date_doc_received_option = browser.find_element_by_css_selector("div.ng-option.ng-star-inserted:nth-child(3)")
+        date_doc_received_option.click()
+        month_doc_received = browser.find_element_by_css_selector("account-info div:nth-child(5) custom-select:nth-child(2)")
+        month_doc_received.click()
+        month_doc_received_option = browser.find_element_by_css_selector("div.ng-option.ng-star-inserted:nth-child(3)")
+        month_doc_received_option.click()
+        year_doc_received = browser.find_element_by_css_selector("account-info div:nth-child(5) custom-select:nth-child(3)")
+        year_doc_received.click()
+        year_doc_received_option = browser.find_element_by_css_selector("div.ng-option.ng-star-inserted:nth-child(3)")
+        year_doc_received_option.click()
+        date_doc_validity = browser.find_element_by_css_selector("account-info div:nth-child(6) custom-select:nth-child(1)")
+        date_doc_validity.click()
+        date_doc_validity_option = browser.find_element_by_css_selector("div.ng-option.ng-star-inserted:nth-child(3)")
+        date_doc_validity_option.click()
+        month_doc_validity = browser.find_element_by_css_selector("account-info div:nth-child(6) custom-select:nth-child(2)")
+        month_doc_validity.click()
+        month_doc_validity_option = browser.find_element_by_css_selector("div.ng-option.ng-star-inserted:nth-child(3)")
+        month_doc_validity_option.click()
+        year_doc_validity = browser.find_element_by_css_selector("account-info div:nth-child(6) custom-select:nth-child(3)")
+        year_doc_validity.click()
+        year_doc_validity_option = browser.find_element_by_css_selector("div.ng-option.ng-star-inserted:nth-child(3)")
+        year_doc_validity_option.click()
+
     finally:
         time.sleep(3)
         # browser.quit()
